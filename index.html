@@ -1,0 +1,84 @@
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head>
+  <meta charset="utf-8"/>
+  <title>货币转换器</title>  
+  <style>  
+    body {  
+      font-family: Arial, sans-serif;  
+      text-align: center;  
+      padding: 20px;  
+    }  
+    h1 {  
+      color: #333;  
+    }  
+    #converter {  
+      margin-top: 20px;  
+    }  
+    #result {  
+      font-size: 24px;  
+      margin-top: 10px;  
+    }  
+  </style>  
+</head>  
+<body>  
+  <h1>货币转换器</h1>  
+  <div id="converter">  
+    <label for="amount">金额:</label>  
+    <input type="number" id="amount" min="0" step="0.01">  
+    <br>  
+    <label for="fromCurrency">原始货币:</label>  
+    <select id="fromCurrency">  
+      <option value="USD">美元 (USD)</option>  
+      <option value="CNY">人民币 (CNY)</option>  
+      <option value="HXZ">花西币 (HXZ)</option>
+      <!-- 添加其他货币选项 -->  
+    </select>  
+    <br>  
+    <label for="toCurrency">目标货币:</label>  
+    <select id="toCurrency">  
+      <option value="USD">美元 (USD)</option>  
+      <option value="CNY">人民币 (CNY)</option>  
+      <option value="HXZ">花西币 (HXZ)</option>
+      <!-- 添加其他货币选项 -->  
+    </select>  
+    <br>  
+    <button onclick="convertCurrency()">转换</button>  
+  </div>  
+  <div id="result"></div>  
+  
+  <script>  
+    function convertCurrency() {  
+      var amount = parseFloat(document.getElementById("amount").value);  
+      var fromCurrency = document.getElementById("fromCurrency").value;  
+      var toCurrency = document.getElementById("toCurrency").value;  
+      var exchangeRate;  
+  
+      // 设置货币汇率，可以根据需要添加更多货币和汇率  
+      var exchangeRates = {  
+        "USD_CNY": 7.27, // 美元到欧元汇率，例如 1 美元 = 0.85 欧元  
+        "CNY_USD": 0.13, // 欧元到美元汇率，例如 1 欧元 = 1.18 美元  
+        "USD_HXZ": 0.13, // 美元到人民币汇率，例如 1 美元 = 6.49 元人民币  
+        "HXZ_USD": 10.85, // 人民币到美元汇率，例如 1 元人民币 = 0.15 美元
+        "HXZ_CNY": 79, // 美元到欧元汇率，例如 1 美元 = 0.85 欧元  
+        "CNY_HXZ": 0.0126582241, // 欧元到美元汇率，例如 1 欧元 = 1.18 美元  
+        // 添加其他货币汇率...  
+      };  
+  
+      // 根据选择的货币设置汇率和计算结果  
+      if (fromCurrency === "USD") {  
+        exchangeRate = exchangeRates["USD_" + toCurrency];  
+      } else if (fromCurrency === "CNY") {  
+        exchangeRate = exchangeRates["CNY_" + toCurrency];  
+      } else if (fromCurrency === "HXZ") {  
+        exchangeRate = exchangeRates["HXZ_" + toCurrency];  
+      } else {  
+        exchangeRate = 1; // 默认汇率为 1，表示原始货币和目标货币相同  
+      }  
+  
+      var result = amount * exchangeRate;  
+      document.getElementById("result").innerHTML = "转换结果: " + result + " " + toCurrency;  
+    }  
+  </script>  
+</body>  
+</html>
